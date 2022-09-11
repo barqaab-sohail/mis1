@@ -7,7 +7,8 @@ import support from './support';
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-    items: [dashboard, pages, utilities, support]
+    //for more pages add item here
+    items: [dashboard]
 };
 
 export default menuItems;

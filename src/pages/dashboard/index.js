@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 // material-ui
 import {
@@ -72,6 +73,21 @@ const status = [
 const DashboardDefault = () => {
     const [value, setValue] = useState('today');
     const [slot, setSlot] = useState('week');
+    const [powerInvoice, setPowerInvoice] = useState([]);
+
+    const sendGetRequest = async () => {
+        try {
+            const resp = await axios.get('http://192.168.0.121/hrms/public/api/dashboardData');
+            setPowerInvoice(await resp.data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    useEffect(() => {
+        sendGetRequest();
+        console.log(powerInvoice);
+    }, []);
 
     return (
         <Grid container rowSpacing={4.5} columnSpacing={2.75}>
@@ -80,13 +96,13 @@ const DashboardDefault = () => {
                 <Typography variant="h5">Dashboard</Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={3}>
-                <AnalyticEcommerce title="Total Page Views" count="4,42,236" percentage={59.3} extra="35,000" />
+                <AnalyticEcommerce title="Total Power Projects Running" count={powerInvoice.total_power_projects_running} />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={3}>
-                <AnalyticEcommerce title="Total Users" count="78,250" percentage={70.5} extra="8,900" />
+                <AnalyticEcommerce title="Current Month Payment Received" count={powerInvoice.current_month_received} />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={3}>
-                <AnalyticEcommerce title="Total Order" count="18,800" percentage={27.4} isLoss color="warning" extra="1,943" />
+                <AnalyticEcommerce title="Last Month Payment Received" count={powerInvoice.last_month_received} />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={3}>
                 <AnalyticEcommerce title="Total Sales" count="$35,078" percentage={27.4} isLoss color="warning" extra="$20,395" />
