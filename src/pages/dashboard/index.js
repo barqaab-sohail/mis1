@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 
 // material-ui
 import {
@@ -20,13 +19,13 @@ import {
 } from '@mui/material';
 
 // project import
+//import ProjectInvoice from './ProjectInvoice';
 import OrdersTable from './OrdersTable';
 import IncomeAreaChart from './IncomeAreaChart';
 import MonthlyBarChart from './MonthlyBarChart';
 import ReportAreaChart from './ReportAreaChart';
 import SalesColumnChart from './SalesColumnChart';
 import MainCard from 'components/MainCard';
-import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
 
 // assets
 import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
@@ -73,42 +72,10 @@ const status = [
 const DashboardDefault = () => {
     const [value, setValue] = useState('today');
     const [slot, setSlot] = useState('week');
-    const [powerInvoice, setPowerInvoice] = useState([]);
-
-    const sendGetRequest = async () => {
-        try {
-            const resp = await axios.get('http://192.168.0.121/hrms/public/api/dashboardData');
-            setPowerInvoice(await resp.data);
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-    useEffect(() => {
-        sendGetRequest();
-        console.log(powerInvoice);
-    }, []);
 
     return (
         <Grid container rowSpacing={4.5} columnSpacing={2.75}>
             {/* row 1 */}
-            <Grid item xs={12} sx={{ mb: -2.25 }}>
-                <Typography variant="h5">Dashboard</Typography>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-                <AnalyticEcommerce title="Total Power Projects Running" count={powerInvoice.total_power_projects_running} />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-                <AnalyticEcommerce title="Current Month Payment Received" count={powerInvoice.current_month_received} />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-                <AnalyticEcommerce title="Last Month Payment Received" count={powerInvoice.last_month_received} />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-                <AnalyticEcommerce title="Total Sales" count="$35,078" percentage={27.4} isLoss color="warning" extra="$20,395" />
-            </Grid>
-
-            <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
 
             {/* row 2 */}
             <Grid item xs={12} md={7} lg={8}>
