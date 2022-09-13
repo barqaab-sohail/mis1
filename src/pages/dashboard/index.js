@@ -19,7 +19,9 @@ import {
 } from '@mui/material';
 
 // project import
-//import ProjectInvoice from './ProjectInvoice';
+import ProjectDetailModal from './ProjectDetailModal';
+import ProjectInvoice from './ProjectInvoice';
+import RunningProjectsTable from './RunningProjectsTable';
 import OrdersTable from './OrdersTable';
 import IncomeAreaChart from './IncomeAreaChart';
 import MonthlyBarChart from './MonthlyBarChart';
@@ -76,7 +78,9 @@ const DashboardDefault = () => {
     return (
         <Grid container rowSpacing={4.5} columnSpacing={2.75}>
             {/* row 1 */}
-
+            <ProjectDetailModal />
+            <ProjectInvoice />
+            <RunningProjectsTable />
             {/* row 2 */}
             <Grid item xs={12} md={7} lg={8}>
                 <Grid container alignItems="center" justifyContent="space-between">

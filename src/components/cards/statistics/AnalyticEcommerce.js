@@ -14,12 +14,12 @@ import { RiseOutlined, FallOutlined } from '@ant-design/icons';
 const AnalyticEcommerce = ({ color, title, count, percentage, isLoss, extra }) => (
     <MainCard contentSX={{ p: 2.25 }}>
         <Stack spacing={0.5}>
-            <Typography variant="h6" color="textSecondary">
+            <Typography variant="h6" color="textPrimary">
                 {title}
             </Typography>
             <Grid container alignItems="center">
                 <Grid item>
-                    <Typography variant="h1" color="inherit">
+                    <Typography variant="h2" color="inherit">
                         {count}
                     </Typography>
                 </Grid>

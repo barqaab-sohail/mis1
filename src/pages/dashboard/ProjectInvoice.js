@@ -3,22 +3,7 @@ import axios from 'axios';
 import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
 
 // material-ui
-import {
-    Avatar,
-    AvatarGroup,
-    Box,
-    Button,
-    Grid,
-    List,
-    ListItemAvatar,
-    ListItemButton,
-    ListItemSecondaryAction,
-    ListItemText,
-    MenuItem,
-    Stack,
-    TextField,
-    Typography
-} from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 
 const ProjectInvoice = () => {
     const [powerInvoice, setPowerInvoice] = useState([]);
@@ -26,7 +11,7 @@ const ProjectInvoice = () => {
     useEffect(() => {
         const sendGetRequest = async () => {
             try {
-                const resp = await axios.get('http://192.168.1.10/hrms/public/api/dashboardData');
+                const resp = await axios.get('http://192.168.1.10/hrms/public/api/invoiceData');
                 setPowerInvoice(await resp.data);
             } catch (err) {
                 console.log(err);
@@ -52,25 +37,12 @@ const ProjectInvoice = () => {
                 <AnalyticEcommerce title="Last Month Payment Received" count={powerInvoice.last_month_received} />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={2}>
-                <AnalyticEcommerce
-                    title="Current Month Total Invoices"
-                    count={powerInvoice.current_month_invoice}
-                    percentage={27.4}
-                    isLoss
-                    color="warning"
-                    extra="$20,395"
-                />
+                <AnalyticEcommerce title="Current Month Total Invoices" count={powerInvoice.current_month_invoice} />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={2}>
-                <AnalyticEcommerce
-                    title="Last Month Total Invoices"
-                    count={powerInvoice.last_month_invoice}
-                    percentage={27.4}
-                    isLoss
-                    color="warning"
-                    extra="$20,395"
-                />
+                <AnalyticEcommerce title="Last Month Total Invoices" count={powerInvoice.last_month_invoice} />
             </Grid>
+            <Grid item xs={12} sm={6} md={4} lg={2}></Grid>
 
             <Grid item md={8} sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} />
         </>
