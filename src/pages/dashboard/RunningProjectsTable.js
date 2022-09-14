@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../../api/axios';
 // material-ui
 import { Grid, Typography } from '@mui/material';
 import MaterialTable from 'material-table';
+const LOGIN_URL = '/powerRunningProjectsTable';
 
 const RunningProjectsTable = () => {
     const [runningProjects, setRunningProjects] = useState([]);
@@ -10,7 +11,7 @@ const RunningProjectsTable = () => {
     useEffect(() => {
         const sendGetRequest = async () => {
             try {
-                const resp = await axios.get('http://192.168.1.10/hrms/public/api/powerRunningProjectsTable');
+                const resp = await axios.get(LOGIN_URL);
                 setRunningProjects(await resp.data);
             } catch (err) {
                 console.log(err);
