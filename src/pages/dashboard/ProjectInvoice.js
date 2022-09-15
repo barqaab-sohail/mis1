@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../../api/axios';
 import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
+const END_POINT = '/invoiceData';
 
 // material-ui
 import { Grid, Typography } from '@mui/material';
@@ -11,7 +12,7 @@ const ProjectInvoice = () => {
     useEffect(() => {
         const sendGetRequest = async () => {
             try {
-                const resp = await axios.get('http://192.168.1.10/hrms/public/api/invoiceData');
+                const resp = await axios.get(END_POINT);
                 setPowerInvoice(await resp.data);
             } catch (err) {
                 console.log(err);

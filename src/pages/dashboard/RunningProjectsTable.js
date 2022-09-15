@@ -3,7 +3,7 @@ import axios from '../../api/axios';
 // material-ui
 import { Grid, Typography } from '@mui/material';
 import MaterialTable from 'material-table';
-const LOGIN_URL = '/powerRunningProjectsTable';
+const END_POINT = '/powerRunningProjectsTable';
 
 const RunningProjectsTable = () => {
     const [runningProjects, setRunningProjects] = useState([]);
@@ -11,7 +11,7 @@ const RunningProjectsTable = () => {
     useEffect(() => {
         const sendGetRequest = async () => {
             try {
-                const resp = await axios.get(LOGIN_URL);
+                const resp = await axios.get(END_POINT);
                 setRunningProjects(await resp.data);
             } catch (err) {
                 console.log(err);

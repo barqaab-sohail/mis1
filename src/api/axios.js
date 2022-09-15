@@ -1,4 +1,4 @@
 import axios from 'axios';
 export default axios.create({
-    baseURL: 'https://barqaab.pk/hrms/public/api'
+    baseURL: 'http://192.168.1.10/hrms/public/api'
 });

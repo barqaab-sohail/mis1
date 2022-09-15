@@ -19,7 +19,7 @@ const AnalyticEcommerce = ({ color, title, count, percentage, isLoss, extra }) =
             </Typography>
             <Grid container alignItems="center">
                 <Grid item>
-                    <Typography variant="h2" color="inherit">
+                    <Typography variant="h3" color="inherit">
                         {count}
                     </Typography>
                 </Grid>
