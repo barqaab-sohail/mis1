@@ -82,7 +82,7 @@ const DashboardDefault = () => {
             <ProjectInvoice />
 
             {/* row 2 */}
-            <Grid item xs={12} md={7} lg={12}>
+            {/* <Grid item xs={12} md={7} lg={12}>
                 <Grid container alignItems="center" justifyContent="space-between">
                     <Grid item>
                         <Typography variant="h5">Invoice and Payment Report</Typography>
@@ -113,11 +113,11 @@ const DashboardDefault = () => {
                     </Stack>
                     <InvoiceExpenseChart />
                 </MainCard>
-            </Grid>
+            </Grid> */}
             {/* row 3 */}
             <RunningProjectsTable />
             {/* row 4 */}
-            <Grid item xs={12} md={7} lg={8}>
+            {/* <Grid item xs={12} md={7} lg={8}>
                 <Grid container alignItems="center" justifyContent="space-between">
                     <Grid item>
                         <Typography variant="h5">Unique Visitor</Typography>
@@ -167,10 +167,10 @@ const DashboardDefault = () => {
                     </Box>
                     <MonthlyBarChart />
                 </MainCard>
-            </Grid>
+            </Grid> */}
 
             {/* row 4 */}
-            <Grid item xs={12} md={7} lg={8}>
+            {/* <Grid item xs={12} md={7} lg={8}>
                 <Grid container alignItems="center" justifyContent="space-between">
                     <Grid item>
                         <Typography variant="h5">Recent Orders</Typography>
@@ -205,7 +205,7 @@ const DashboardDefault = () => {
                     </List>
                     <ReportAreaChart />
                 </MainCard>
-            </Grid>
+            </Grid> */}
         </Grid>
     );
 };

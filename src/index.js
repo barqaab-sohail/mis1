@@ -21,7 +21,7 @@ import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
     <StrictMode>
         <ReduxProvider store={store}>
-            <BrowserRouter basename="/mis">
+            <BrowserRouter basename="/">
                 <App />
             </BrowserRouter>
         </ReduxProvider>

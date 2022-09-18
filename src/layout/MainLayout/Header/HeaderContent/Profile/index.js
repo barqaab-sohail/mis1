@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -28,6 +29,7 @@ import SettingTab from './SettingTab';
 // assets
 import avatar1 from 'assets/images/users/zafar.JPG';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import axios from '../../../../../api/axios';
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
@@ -55,9 +57,19 @@ function a11yProps(index) {
 
 const Profile = () => {
     const theme = useTheme();
-
+    const history = useNavigate();
     const handleLogout = async () => {
-        // logout
+        const token = localStorage.getItem('auth_token');
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        axios.post('mis/logout').then((res) => {
+            if (res.data.status === 200) {
+                localStorage.removeItem('auth_token');
+                history('/login');
+                console.log('ok');
+            } else {
+                console.log('not logout');
+            }
+        });
     };
 
     const anchorRef = useRef(null);

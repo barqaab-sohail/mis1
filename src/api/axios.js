@@ -1,4 +1,8 @@
 import axios from 'axios';
+
+const token = localStorage.getItem('auth_token');
 export default axios.create({
-    baseURL: 'http://192.168.0.121/hrms/public/api'
+    withCredentials: true,
+    baseURL: 'http://192.168.0.121/hrms/public/api/',
+    headers: { Accept: 'application/json' }
 });

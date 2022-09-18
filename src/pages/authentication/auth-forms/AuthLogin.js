@@ -1,5 +1,7 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, Navigate } from 'react-router-dom';
+//import axios from '../../../api/axios';
+import axios from '../../../api/axios';
 
 // material-ui
 import {
@@ -32,6 +34,8 @@ import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const AuthLogin = () => {
+    const nav = useNavigate();
+
     const [checked, setChecked] = React.useState(false);
 
     const [showPassword, setShowPassword] = React.useState(false);
@@ -45,6 +49,23 @@ const AuthLogin = () => {
     const loginSubmit = (values) => {
         console.log(values.email);
         console.log(values.password);
+        const data = {
+            email: values.email,
+            password: values.password
+        };
+        //axios.get('/sanctum/csrf-cookie').then((response) => {
+        axios.post('mis/login', data).then((res) => {
+            if (res.data.status === 200) {
+                console.log(res.data);
+                localStorage.setItem('auth_token', res.data.token);
+                nav('/');
+            } else if (res.data.status === 401) {
+                console.log('Not Authorized');
+            } else {
+                console.log('some thing is missing');
+            }
+        });
+        // });
     };
 
     return (
