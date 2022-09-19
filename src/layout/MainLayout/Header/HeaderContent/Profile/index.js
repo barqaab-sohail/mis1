@@ -64,6 +64,9 @@ const Profile = () => {
         axios.post('mis/logout').then((res) => {
             if (res.data.status === 200) {
                 localStorage.removeItem('auth_token');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userDesignation');
+                localStorage.removeItem('pictureUrl');
                 history('/login');
                 console.log('ok');
             } else {
@@ -109,8 +112,8 @@ const Profile = () => {
                 onClick={handleToggle}
             >
                 <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
-                    <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
-                    <Typography variant="subtitle1">Muhammad Zafar</Typography>
+                    <Avatar alt="profile user" src={localStorage.getItem('pictureUrl')} sx={{ width: 40, height: 40 }} />
+                    <Typography variant="subtitle1">{localStorage.getItem('userName')}</Typography>
                 </Stack>
             </ButtonBase>
             <Popper
@@ -151,11 +154,15 @@ const Profile = () => {
                                             <Grid container justifyContent="space-between" alignItems="center">
                                                 <Grid item>
                                                     <Stack direction="row" spacing={1.25} alignItems="center">
-                                                        <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
+                                                        <Avatar
+                                                            alt="profile user"
+                                                            src={localStorage.getItem('pictureUrl')}
+                                                            sx={{ width: 32, height: 32 }}
+                                                        />
                                                         <Stack>
-                                                            <Typography variant="h6">Muhammad Zafar</Typography>
+                                                            <Typography variant="h6">{localStorage.getItem('userName')}</Typography>
                                                             <Typography variant="body2" color="textSecondary">
-                                                                Chief Executive Officer
+                                                                {localStorage.getItem('userDesignation')}
                                                             </Typography>
                                                         </Stack>
                                                     </Stack>

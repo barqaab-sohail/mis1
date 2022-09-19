@@ -58,6 +58,9 @@ const AuthLogin = () => {
             if (res.data.status === 200) {
                 console.log(res.data);
                 localStorage.setItem('auth_token', res.data.token);
+                localStorage.setItem('userName', res.data.userName);
+                localStorage.setItem('userDesignation', res.data.userDesignation);
+                localStorage.setItem('pictureUrl', res.data.pictureUrl);
                 nav('/');
             } else if (res.data.status === 401) {
                 console.log('Not Authorized');
