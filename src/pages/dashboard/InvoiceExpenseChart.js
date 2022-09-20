@@ -117,7 +117,6 @@ const InvoiceExpenseChart = () => {
                 setMonths(resp.data.months);
                 setInvoices(resp.data.invoices);
                 setExpenses(resp.data.expenses);
-                console.log(invoices);
             } catch (err) {
                 console.log(err);
             }

@@ -12,6 +12,8 @@ const ProjectInvoice = () => {
     useEffect(() => {
         const sendGetRequest = async () => {
             try {
+                const token = localStorage.getItem('auth_token');
+                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                 const resp = await axios.get(END_POINT);
                 setPowerInvoice(await resp.data);
             } catch (err) {
@@ -20,7 +22,6 @@ const ProjectInvoice = () => {
         };
 
         sendGetRequest();
-        console.log(powerInvoice);
     }, []);
 
     return (

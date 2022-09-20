@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
 // material-ui
 import { Grid, Typography } from '@mui/material';
@@ -7,10 +8,12 @@ const END_POINT = '/powerRunningProjectsTable';
 
 const RunningProjectsTable = () => {
     const [runningProjects, setRunningProjects] = useState([]);
-
+    const nav = useNavigate();
     useEffect(() => {
         const sendGetRequest = async () => {
             try {
+                const token = localStorage.getItem('auth_token');
+                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                 const resp = await axios.get(END_POINT);
                 setRunningProjects(await resp.data);
             } catch (err) {
@@ -19,7 +22,6 @@ const RunningProjectsTable = () => {
         };
 
         sendGetRequest();
-        console.log(runningProjects);
     }, []);
 
     const columns = [
@@ -43,6 +45,7 @@ const RunningProjectsTable = () => {
                     title="List of Power Running Projects"
                     data={runningProjects}
                     onRowClick={(event, rowData) => {
+                        nav('/project-detail');
                         console.log(rowData.id);
                     }}
                 />

@@ -47,8 +47,6 @@ const AuthLogin = () => {
         event.preventDefault();
     };
     const loginSubmit = (values) => {
-        console.log(values.email);
-        console.log(values.password);
         const data = {
             email: values.email,
             password: values.password
@@ -56,12 +54,11 @@ const AuthLogin = () => {
         //axios.get('/sanctum/csrf-cookie').then((response) => {
         axios.post('mis/login', data).then((res) => {
             if (res.data.status === 200) {
-                console.log(res.data);
                 localStorage.setItem('auth_token', res.data.token);
                 localStorage.setItem('userName', res.data.userName);
                 localStorage.setItem('userDesignation', res.data.userDesignation);
                 localStorage.setItem('pictureUrl', res.data.pictureUrl);
-                nav('/');
+                nav('/dashboard');
             } else if (res.data.status === 401) {
                 console.log('Not Authorized');
             } else {
