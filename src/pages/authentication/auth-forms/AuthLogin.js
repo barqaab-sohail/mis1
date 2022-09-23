@@ -60,7 +60,7 @@ const AuthLogin = () => {
                 localStorage.setItem('pictureUrl', res.data.pictureUrl);
                 nav('/dashboard');
             } else if (res.data.status === 401) {
-                console.log('Not Authorized');
+                console.log('You Not Authorized');
             } else {
                 console.log('some thing is missing');
             }

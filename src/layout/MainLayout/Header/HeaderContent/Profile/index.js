@@ -67,7 +67,7 @@ const Profile = () => {
                 localStorage.removeItem('userName');
                 localStorage.removeItem('userDesignation');
                 localStorage.removeItem('pictureUrl');
-                history('/login');
+                history('/mis/login');
             } else {
                 console.log('not logout');
             }
