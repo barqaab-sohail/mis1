@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
 // material-ui
-import { Button, Typography } from '@mui/material';
+import { Button, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 
 // project import
 import MainCard from 'components/MainCard';
 import { useParams } from 'react-router-dom';
+import Highlighter from '../../components/third-party/Highlighter';
 
 // ==============================|| PROJECT DETAIL PAGE ||============================== //
 
@@ -34,13 +35,27 @@ const ProjectDetail = () => {
             <Button variant="contained" href="#contained-buttons">
                 Link
             </Button>
-            <MainCard title={projectDetail.name}>
-                <Typography variant="body2">
-                    Lorem ipsum dolor sit amen, consenter nipissing eli, sed do elusion tempos incident ut laborers et doolie magna alissa.
-                    Ut enif ad minim venice, quin nostrum exercitation illampu laborings nisi ut liquid ex ea commons construal. Duos aube
-                    grue dolor in reprehended in voltage veil esse colum doolie eu fujian bulla parian. Exceptive sin ocean cuspidate non
-                    president, sunk in culpa qui officiate descent molls anim id est labours.
+            <MainCard title={projectDetail.projectName}>
+                <Typography>
+                    <b>Client Name :</b> {projectDetail.clientName}
                 </Typography>
+                <Typography>
+                    <b>Commencement Date :</b> {projectDetail.commencementDate}
+                </Typography>
+                <Typography>
+                    <b>Contractual Completion Date :</b> {projectDetail.contractualCompletionDate}
+                </Typography>
+                <Typography>
+                    <b>Last Invoice Month :</b> {projectDetail.lastInvoiceMonth}
+                </Typography>
+                <Typography>
+                    <b>Total Project Cost W/O Sales Tax : </b>
+                    {projectDetail.projectTotalCostWOTax}
+                </Typography>
+                <Typography>
+                    <b>Total Invoices Raised w/O Sales Tax :</b> {projectDetail.totalInvoicesAmountWOTax}
+                </Typography>
+                {projectDetail.projectType === 'Lumpsum' ? <Typography>Total Expenses: </Typography> : ''}
             </MainCard>
         </>
     );
