@@ -34,7 +34,8 @@ const RunningProjectsTable = () => {
         { title: 'Payment Received', field: 'paymentReceived' },
         { title: 'Pending Payments', field: 'pendingPayments' },
         { title: 'Budget Utilization', field: 'budgetUtilization' },
-        { title: 'Project Progress', field: 'projectProgress' }
+        { title: 'Project Progress', field: 'projectProgress' },
+        { title: 'Last Invoice', field: 'latestInvoiceMonth' }
     ];
 
     return (
@@ -45,8 +46,7 @@ const RunningProjectsTable = () => {
                     title="List of Power Running Projects"
                     data={runningProjects}
                     onRowClick={(event, rowData) => {
-                        nav('/project-detail');
-                        console.log(rowData.id);
+                        nav('/project-detail/' + rowData.id);
                     }}
                 />
             </Grid>

@@ -28,8 +28,8 @@ const MainRoutes = {
             element: <DashboardDefault />
         },
         {
-            path: 'project-detail/:id',
-            element: <ProjectDetail id="16" />
+            path: 'project-detail/:ProjectId',
+            element: <ProjectDetail />
         },
         {
             path: 'color',
