@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
+import MonthlyBarChart from '../dashboard/MonthlyBarChart';
+import InvoiceExpenseChart from './InvoiceExpenseChart';
 // material-ui
-import { Button, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
+import { Button, Card, CardActions, CardContent, CardHeader, Divider, Typography } from '@mui/material';
 
 // project import
 import MainCard from 'components/MainCard';
@@ -15,6 +17,9 @@ const ProjectDetail = () => {
     const { ProjectId } = useParams();
     const [projectDetail, setProjectDetail] = useState([]);
     const nav = useNavigate();
+    const dashboard = () => {
+        nav('/dashboard');
+    };
     useEffect(() => {
         const sendGetRequest = async () => {
             try {
@@ -28,13 +33,11 @@ const ProjectDetail = () => {
         };
 
         sendGetRequest();
+        console.log(projectDetail);
     }, []);
 
     return (
         <>
-            <Button variant="contained" href="#contained-buttons">
-                Link
-            </Button>
             <MainCard title={projectDetail.projectName}>
                 <Typography>
                     <b>Client Name :</b> {projectDetail.clientName}
@@ -45,18 +48,34 @@ const ProjectDetail = () => {
                 <Typography>
                     <b>Contractual Completion Date :</b> {projectDetail.contractualCompletionDate}
                 </Typography>
-                <Typography>
-                    <b>Last Invoice Month :</b> {projectDetail.lastInvoiceMonth}
-                </Typography>
-                <Typography>
-                    <b>Total Project Cost W/O Sales Tax : </b>
-                    {projectDetail.projectTotalCostWOTax}
-                </Typography>
-                <Typography>
-                    <b>Total Invoices Raised w/O Sales Tax :</b> {projectDetail.totalInvoicesAmountWOTax}
-                </Typography>
-                {projectDetail.projectType === 'Lumpsum' ? <Typography>Total Expenses: </Typography> : ''}
+                {projectDetail.projectType === 'Man Month' ? (
+                    <>
+                        <Typography>
+                            <b>Last Invoice Month :</b> {projectDetail.lastInvoiceMonth}
+                        </Typography>
+                        <Typography>
+                            <b>Total Project Cost W/O Sales Tax : </b>
+                            {projectDetail.projectTotalCostWOTax}
+                        </Typography>
+                        <Typography>
+                            <b>Total Invoices Raised w/O Sales Tax :</b> {projectDetail.totalInvoicesAmountWOTaxWOExc}
+                        </Typography>
+                        <Typography>
+                            <b>Remaining Budget :</b> {projectDetail.balaneBudget}, {projectDetail.percentageRemainingBudget}%
+                        </Typography>
+                    </>
+                ) : (
+                    <>
+                        <Typography>Total Expenses: </Typography>
+                    </>
+                )}
+                <CardActions>
+                    <Button variant="contained" onClick={dashboard}>
+                        Dashboard
+                    </Button>
+                </CardActions>
             </MainCard>
+            <InvoiceExpenseChart />
         </>
     );
 };

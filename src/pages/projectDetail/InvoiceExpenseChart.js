@@ -34,7 +34,7 @@ const columnChartOptions = {
     },
     yaxis: {
         title: {
-            text: '$ (thousands)'
+            text: 'PKR'
         }
     },
     fill: {
@@ -43,7 +43,7 @@ const columnChartOptions = {
     tooltip: {
         y: {
             formatter(val) {
-                return `$ ${val} thousands`;
+                return `PKR ${val}`;
             }
         }
     },
@@ -81,7 +81,7 @@ const columnChartOptions = {
 
 // ==============================|| SALES COLUMN CHART ||============================== //
 
-const SalesColumnChart = () => {
+const InvoiceExpenseChart = () => {
     const theme = useTheme();
 
     const { primary, secondary } = theme.palette.text;
@@ -145,4 +145,4 @@ const SalesColumnChart = () => {
     );
 };
 
-export default SalesColumnChart;
+export default InvoiceExpenseChart;
