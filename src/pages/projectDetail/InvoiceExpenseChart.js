@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import axios from '../../api/axios';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -81,7 +82,7 @@ const columnChartOptions = {
 
 // ==============================|| SALES COLUMN CHART ||============================== //
 
-const InvoiceExpenseChart = () => {
+const InvoiceExpenseChart = (props) => {
     const theme = useTheme();
 
     const { primary, secondary } = theme.palette.text;
@@ -91,17 +92,52 @@ const InvoiceExpenseChart = () => {
     const primaryMain = theme.palette.primary.main;
     const successDark = theme.palette.success.dark;
 
+    const [invoiceData, setInvoiceData] = useState([]);
+    const [paymentData, setPaymentData] = useState([]);
+    const [monthData, setMonthData] = useState([]);
+    const [expenseData, setExpenseData] = useState([]);
+
     const [series, setSeries] = useState([
         {
             name: 'Invoice Amount',
-            data: [180, 90, 135, 114, 120, 145]
+            data: expenseData
         },
         {
-            name: 'Total Expenses',
+            name: 'Payment Received',
             data: [120, 45, 78, 150, 168, 99]
         }
     ]);
 
+    useEffect(() => {
+        const chartMonth = [];
+        const chartExpenses = [];
+        const chartInvoices = [];
+        const chartPayments = [];
+
+        const sendGetRequest = async () => {
+            try {
+                const token = localStorage.getItem('auth_token');
+                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                const dataReq = await axios.get('/projectExpenseChart/' + props.projectId);
+                const dataRes = await dataReq.data;
+                for (let i = 0; i < dataRes.length; i++) {
+                    chartMonth.push(dataRes[i].months);
+                    chartExpenses.push(dataRes[i].expenses);
+                    chartInvoices.push(dataRes[i].invoices);
+                    chartPayments.push(dataRes[i].payments);
+                }
+                setInvoiceData(chartInvoices);
+                setPaymentData(chartPayments);
+                setMonthData(chartMonth);
+                setExpenseData(chartExpenses);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        sendGetRequest();
+    }, []);
+    console.log(expenseData);
     const [options, setOptions] = useState(columnChartOptions);
 
     useEffect(() => {
@@ -109,6 +145,7 @@ const InvoiceExpenseChart = () => {
             ...prevState,
             colors: [warning, primaryMain],
             xaxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
                 labels: {
                     style: {
                         colors: [secondary, secondary, secondary, secondary, secondary, secondary]

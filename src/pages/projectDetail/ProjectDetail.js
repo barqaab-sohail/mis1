@@ -33,7 +33,6 @@ const ProjectDetail = () => {
         };
 
         sendGetRequest();
-        console.log(projectDetail);
     }, []);
 
     return (
@@ -75,7 +74,7 @@ const ProjectDetail = () => {
                     </Button>
                 </CardActions>
             </MainCard>
-            <InvoiceExpenseChart />
+            <InvoiceExpenseChart projectId={ProjectId} />
         </>
     );
 };
