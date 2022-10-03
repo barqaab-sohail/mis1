@@ -10,6 +10,7 @@ import { Button, Card, CardActions, CardContent, CardHeader, Divider, Typography
 import MainCard from 'components/MainCard';
 import { useParams } from 'react-router-dom';
 import Highlighter from '../../components/third-party/Highlighter';
+import ExpenseChart from './ExpenseChart';
 
 // ==============================|| PROJECT DETAIL PAGE ||============================== //
 
@@ -74,7 +75,7 @@ const ProjectDetail = () => {
                     </Button>
                 </CardActions>
             </MainCard>
-            <InvoiceExpenseChart projectId={ProjectId} />
+            <ExpenseChart projectId={ProjectId} />
         </>
     );
 };
