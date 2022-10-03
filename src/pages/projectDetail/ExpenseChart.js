@@ -51,21 +51,28 @@ const ExpenseChart = (props) => {
                 yaxis: {
                     show: true,
                     labels: {
-                        show: false,
+                        show: true,
                         formatter: function (val, index) {
-                            return val;
+                            var parts = val?.toString().split('.') || '';
+                            if (parts) {
+                                parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                                return parts.join('.');
+                            } else {
+                                return '';
+                            }
                         }
                     }
                 },
-                tooltip: {
+                dataLabels: {
                     enabled: true,
-                    y: {
-                        formatter: function (val, index) {
-                            var parts = val.toString().split('.');
-                            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                            return parts.join('.');
-                        }
+                    formatter: function (val, index) {
+                        var parts = val?.toString().split('.') || '';
+                        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                        return parts.join('.');
                     }
+                },
+                tooltip: {
+                    enabled: true
                 }
             }}
             series={[
@@ -83,7 +90,7 @@ const ExpenseChart = (props) => {
                 }
             ]}
             type="bar"
-            width={'100%'}
+            width={1000}
             height={500}
         />
     );
