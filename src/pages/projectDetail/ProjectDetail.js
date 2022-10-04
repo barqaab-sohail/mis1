@@ -4,13 +4,14 @@ import axios from '../../api/axios';
 import MonthlyBarChart from '../dashboard/MonthlyBarChart';
 import InvoiceExpenseChart from './InvoiceExpenseChart';
 // material-ui
-import { Button, Card, CardActions, CardContent, CardHeader, Divider, Typography } from '@mui/material';
+import { Button, Card, CardActions, CardContent, CardHeader, Divider, Grid, Typography } from '@mui/material';
 
 // project import
 import MainCard from 'components/MainCard';
 import { useParams } from 'react-router-dom';
 import Highlighter from '../../components/third-party/Highlighter';
 import ExpenseChart from './ExpenseChart';
+import RemainingBudgetChart from './RemainingBudgetChart';
 
 // ==============================|| PROJECT DETAIL PAGE ||============================== //
 
@@ -75,7 +76,18 @@ const ProjectDetail = () => {
                     </Button>
                 </CardActions>
             </MainCard>
-            <ExpenseChart projectId={ProjectId} />
+            {projectDetail.projectType === 'Man Month' ? (
+                <>
+                    <Grid item xs={12} sx={{ mb: -2.25 }}>
+                        <RemainingBudgetChart remainingBudget={projectDetail.percentageRemainingBudget} />
+                    </Grid>
+                </>
+            ) : (
+                ''
+            )}
+            <Grid item xs={12} sx={{ mb: -2.25 }}>
+                <ExpenseChart projectId={ProjectId} />
+            </Grid>
         </>
     );
 };

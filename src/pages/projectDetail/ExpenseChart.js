@@ -90,7 +90,7 @@ const ExpenseChart = (props) => {
                 }
             ]}
             type="bar"
-            width={1000}
+            width={'100%'}
             height={500}
         />
     );

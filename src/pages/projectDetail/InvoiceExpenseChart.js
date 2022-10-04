@@ -97,16 +97,7 @@ const InvoiceExpenseChart = (props) => {
     const [monthData, setMonthData] = useState([]);
     const [expenseData, setExpenseData] = useState([]);
 
-    const [series, setSeries] = useState([
-        {
-            name: 'Invoice Amount',
-            data: expenseData
-        },
-        {
-            name: 'Payment Received',
-            data: [120, 45, 78, 150, 168, 99]
-        }
-    ]);
+    const [series, setSeries] = useState([]);
 
     useEffect(() => {
         const chartMonth = [];
