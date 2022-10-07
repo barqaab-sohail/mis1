@@ -61,10 +61,11 @@ const Profile = () => {
     const handleLogout = async () => {
         const token = localStorage.getItem('auth_token');
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        axios.post('mis/logout').then((res) => {
+        axios.post('mis/logout', { email: localStorage.getItem('email') }).then((res) => {
             if (res.data.status === 200) {
                 localStorage.removeItem('auth_token');
                 localStorage.removeItem('userName');
+                localStorage.removeItem('email');
                 localStorage.removeItem('userDesignation');
                 localStorage.removeItem('pictureUrl');
                 history('/login');

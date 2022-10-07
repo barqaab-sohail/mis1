@@ -56,6 +56,7 @@ const AuthLogin = () => {
             if (res.data.status === 200) {
                 localStorage.setItem('auth_token', res.data.token);
                 localStorage.setItem('userName', res.data.userName);
+                localStorage.setItem('email', res.data.email);
                 localStorage.setItem('userDesignation', res.data.userDesignation);
                 localStorage.setItem('pictureUrl', res.data.pictureUrl);
                 nav('/dashboard');
