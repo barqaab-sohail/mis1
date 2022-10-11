@@ -48,6 +48,7 @@ const RunningProjectsTable = () => {
                     onRowClick={(event, rowData) => {
                         nav('/project-detail/' + rowData.id);
                     }}
+                    options={{ headerStyle: { position: 'sticky', top: 0 }, maxBodyHeight: '650px' }}
                 />
             </Grid>
         </>
