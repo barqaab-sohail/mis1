@@ -18,10 +18,11 @@ const RemainingBudgetChart = (props) => {
                     position: 'bottom',
                     horizontalAlign: 'center'
                 },
+
                 dataLabels: {
                     enabled: true,
                     formatter: function (val, opts) {
-                        return val + '%';
+                        return val.toFixed(2) + '%';
                     }
                 },
                 tooltip: {

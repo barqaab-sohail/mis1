@@ -8,6 +8,9 @@ import MainLayout from 'layout/MainLayout';
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
 const ProjectDetail = Loadable(lazy(() => import('pages/projectDetail/ProjectDetail')));
 
+//render - HR
+const EmployeeList = Loadable(lazy(() => import('pages/hr/EmployeeList')));
+
 // render - sample page
 const SamplePage = Loadable(lazy(() => import('pages/extra-pages/SamplePage')));
 
@@ -26,6 +29,10 @@ const MainRoutes = {
         {
             path: '/dashboard',
             element: <DashboardDefault />
+        },
+        {
+            path: '/employees',
+            element: <EmployeeList />
         },
         {
             path: 'project-detail/:ProjectId',

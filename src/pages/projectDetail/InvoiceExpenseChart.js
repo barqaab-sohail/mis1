@@ -153,6 +153,7 @@ const InvoiceExpenseChart = (props) => {
             grid: {
                 borderColor: line
             },
+
             tooltip: {
                 theme: 'light'
             },

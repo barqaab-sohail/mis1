@@ -31,11 +31,11 @@ const ExpenseChart = (props) => {
                 setInvoices(getInvoices);
                 setExpenses(getExpenses);
                 setPayments(getPayments);
+                console.log(dataRes);
             } catch (err) {
                 console.log(err);
             }
         };
-
         sendGetRequest();
     }, []);
 
@@ -71,6 +71,7 @@ const ExpenseChart = (props) => {
                         return parts.join('.');
                     }
                 },
+
                 tooltip: {
                     enabled: true
                 }
