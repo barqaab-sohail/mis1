@@ -31,7 +31,6 @@ const ExpenseChart = (props) => {
                 setInvoices(getInvoices);
                 setExpenses(getExpenses);
                 setPayments(getPayments);
-                console.log(dataRes);
             } catch (err) {
                 console.log(err);
             }
