@@ -24,6 +24,10 @@ const ProjectInvoice = () => {
         sendGetRequest();
     }, []);
 
+    const handlaPaymentReceived = () => {
+        console.log('clicked Payment Recived');
+    };
+
     return (
         <>
             <Grid item xs={12} sx={{ mb: -2.25 }}>
@@ -32,7 +36,7 @@ const ProjectInvoice = () => {
             <Grid item xs={12} sm={6} md={4} lg={2}>
                 <AnalyticEcommerce title="Total Power Projects Running" count={powerInvoice.total_power_projects_running} />
             </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={2}>
+            <Grid item xs={12} sm={6} md={4} lg={2} onClick={handlaPaymentReceived}>
                 <AnalyticEcommerce title="Current Month Payment Received" count={powerInvoice.current_month_received} />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={2}>
