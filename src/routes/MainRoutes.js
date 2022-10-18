@@ -7,6 +7,7 @@ import MainLayout from 'layout/MainLayout';
 // render - dashboard
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
 const ProjectDetail = Loadable(lazy(() => import('pages/projectDetail/ProjectDetail')));
+const LastMonthPaymentDetail = Loadable(lazy(() => import('pages/dashboard/paymentDetail/LastMonthPayments')));
 
 //render - HR
 const EmployeeList = Loadable(lazy(() => import('pages/hr/EmployeeList')));
@@ -37,6 +38,10 @@ const MainRoutes = {
         {
             path: 'project-detail/:ProjectId',
             element: <ProjectDetail />
+        },
+        {
+            path: 'last-month-payment-detail',
+            element: <LastMonthPaymentDetail />
         },
         {
             path: 'color',
