@@ -26,11 +26,35 @@ const ProjectInvoice = () => {
     }, []);
 
     const currentMonthPaymentDetail = () => {
-        console.log('clicked Payment Recived');
+        if (powerInvoice.current_month_received != 0) {
+            nav('/current-month-payment-detail');
+        } else {
+            console.log('No Payment Received');
+        }
     };
 
     const lastMonthPaymentDetail = () => {
-        nav('/last-month-payment-detail');
+        if (powerInvoice.last_month_received != 0) {
+            nav('/last-month-payment-detail');
+        } else {
+            console.log('No Payment Received');
+        }
+    };
+
+    const currentMonthInvoiceDetail = () => {
+        if (powerInvoice.current_month_invoice != 0) {
+            nav('/current-month-invoice-detail');
+        } else {
+            console.log('No Invoice Raised');
+        }
+    };
+
+    const lastMonthInvoiceDetail = () => {
+        if (powerInvoice.last_month_invoice != 0) {
+            nav('/last-month-invoice-detail');
+        } else {
+            console.log('No Invoice Raised');
+        }
     };
 
     return (
@@ -47,10 +71,10 @@ const ProjectInvoice = () => {
             <Grid item xs={12} sm={6} md={4} lg={2} onClick={lastMonthPaymentDetail}>
                 <AnalyticEcommerce title="Last Month Payment Received" count={powerInvoice.last_month_received} />
             </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={2}>
+            <Grid item xs={12} sm={6} md={4} lg={2} onClick={currentMonthInvoiceDetail}>
                 <AnalyticEcommerce title="Current Month Total Invoices" count={powerInvoice.current_month_invoice} />
             </Grid>
-            <Grid item xs={12} sm={6} md={4} lg={2}>
+            <Grid item xs={12} sm={6} md={4} lg={2} onClick={lastMonthInvoiceDetail}>
                 <AnalyticEcommerce title="Last Month Total Invoices" count={powerInvoice.last_month_invoice} />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={2}></Grid>

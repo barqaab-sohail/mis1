@@ -3,10 +3,10 @@ import axios from '../../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import MaterialTable from 'material-table';
 import { Grid, Button, Typography } from '@mui/material';
-const END_POINT = '/lastMonthPaymentReceived';
+const END_POINT = '/currentMonthPaymentReceived';
 
-const LastMonthPayments = () => {
-    const [lastMonthPayments, setLastMonthPayments] = useState([]);
+const CurrentMonthPayments = () => {
+    const [currentMonthPayments, setCurrentMonthPayments] = useState([]);
     const nav = useNavigate();
 
     const dashboard = () => {
@@ -19,7 +19,7 @@ const LastMonthPayments = () => {
                 const token = localStorage.getItem('auth_token');
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                 const resp = await axios.get(END_POINT);
-                setLastMonthPayments(await resp.data);
+                setCurrentMonthPayments(await resp.data);
             } catch (err) {
                 console.log(err);
             }
@@ -40,8 +40,8 @@ const LastMonthPayments = () => {
             <Grid item xs={12} sx={{ mb: -2.25 }}>
                 <MaterialTable
                     columns={columns}
-                    title="Last Month Payment Received Detail"
-                    data={lastMonthPayments}
+                    title="Current Month Payment Received Detail"
+                    data={currentMonthPayments}
                     options={{ headerStyle: { position: 'sticky', top: 0 }, maxBodyHeight: '650px' }}
                 />
             </Grid>
@@ -49,4 +49,4 @@ const LastMonthPayments = () => {
     );
 };
 
-export default LastMonthPayments;
+export default CurrentMonthPayments;

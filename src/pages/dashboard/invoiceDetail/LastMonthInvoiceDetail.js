@@ -3,10 +3,10 @@ import axios from '../../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import MaterialTable from 'material-table';
 import { Grid, Button, Typography } from '@mui/material';
-const END_POINT = '/lastMonthPaymentReceived';
+const END_POINT = '/lastMonthInvoices';
 
-const LastMonthPayments = () => {
-    const [lastMonthPayments, setLastMonthPayments] = useState([]);
+const LastMonthInvoiceDetail = () => {
+    const [lastMonthInvoices, setLastMonthInvoices] = useState([]);
     const nav = useNavigate();
 
     const dashboard = () => {
@@ -19,7 +19,7 @@ const LastMonthPayments = () => {
                 const token = localStorage.getItem('auth_token');
                 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                 const resp = await axios.get(END_POINT);
-                setLastMonthPayments(await resp.data);
+                setLastMonthInvoices(await resp.data);
             } catch (err) {
                 console.log(err);
             }
@@ -30,7 +30,7 @@ const LastMonthPayments = () => {
 
     const columns = [
         { title: 'Project Name', field: 'projectName', cellStyle: { width: '75%' } },
-        { title: 'Payment Received', field: 'amountReceived' }
+        { title: 'Invoice Amount W/O GST', field: 'invoiceAmount' }
     ];
     return (
         <>
@@ -40,13 +40,13 @@ const LastMonthPayments = () => {
             <Grid item xs={12} sx={{ mb: -2.25 }}>
                 <MaterialTable
                     columns={columns}
-                    title="Last Month Payment Received Detail"
-                    data={lastMonthPayments}
-                    options={{ headerStyle: { position: 'sticky', top: 0 }, maxBodyHeight: '650px' }}
+                    title="Last Month Invoice Detail"
+                    data={lastMonthInvoices}
+                    options={{ headerStyle: { position: 'sticky', top: 0 }, maxBodyHeight: '650px', pageSize: 10 }}
                 />
             </Grid>
         </>
     );
 };
 
-export default LastMonthPayments;
+export default LastMonthInvoiceDetail;

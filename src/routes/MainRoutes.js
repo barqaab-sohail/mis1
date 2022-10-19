@@ -7,7 +7,10 @@ import MainLayout from 'layout/MainLayout';
 // render - dashboard
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
 const ProjectDetail = Loadable(lazy(() => import('pages/projectDetail/ProjectDetail')));
+const CurrentMonthPaymentDetail = Loadable(lazy(() => import('pages/dashboard/paymentDetail/CurrentMonthPaymentDetail')));
 const LastMonthPaymentDetail = Loadable(lazy(() => import('pages/dashboard/paymentDetail/LastMonthPayments')));
+const CurrentMonthInvoiceDetail = Loadable(lazy(() => import('pages/dashboard/invoiceDetail/CurrentMonthInvoiceDetail')));
+const LastMonthInvoiceDetail = Loadable(lazy(() => import('pages/dashboard/invoiceDetail/LastMonthInvoiceDetail')));
 
 //render - HR
 const EmployeeList = Loadable(lazy(() => import('pages/hr/EmployeeList')));
@@ -40,8 +43,20 @@ const MainRoutes = {
             element: <ProjectDetail />
         },
         {
+            path: 'current-month-payment-detail',
+            element: <CurrentMonthPaymentDetail />
+        },
+        {
             path: 'last-month-payment-detail',
             element: <LastMonthPaymentDetail />
+        },
+        {
+            path: 'current-month-invoice-detail',
+            element: <CurrentMonthInvoiceDetail />
+        },
+        {
+            path: 'last-month-invoice-detail',
+            element: <LastMonthInvoiceDetail />
         },
         {
             path: 'color',
