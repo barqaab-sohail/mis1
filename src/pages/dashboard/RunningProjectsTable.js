@@ -35,7 +35,9 @@ const RunningProjectsTable = () => {
         { title: 'Pending Payments', field: 'pendingPayments' },
         { title: 'Budget Utilization', field: 'budgetUtilization' },
         { title: 'Project Progress', field: 'projectProgress' },
-        { title: 'Last Invoice', field: 'latestInvoiceMonth' }
+        { title: 'Last Invoice', field: 'latestInvoiceMonth' },
+        { title: 'Last Expense', field: 'latestExpenditureMonth' },
+        { title: 'Last Payment', field: 'latestPaymentMonth' }
     ];
 
     return (
