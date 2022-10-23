@@ -11,6 +11,7 @@ import MainCard from 'components/MainCard';
 import { useParams } from 'react-router-dom';
 import Highlighter from '../../components/third-party/Highlighter';
 import ExpenseChart from './ExpenseChart';
+import TotalChart from './TotalChart';
 import RemainingBudgetChart from './RemainingBudgetChart';
 
 // ==============================|| PROJECT DETAIL PAGE ||============================== //
@@ -83,8 +84,13 @@ const ProjectDetail = () => {
                     </Grid>
                 </>
             ) : (
-                ''
+                <>
+                    <Grid item xs={12} sx={{ mb: -2.25 }}>
+                        <TotalChart projectId={ProjectId} />
+                    </Grid>
+                </>
             )}
+
             <Grid item xs={12} sx={{ mb: -2.25 }}>
                 <ExpenseChart projectId={ProjectId} />
             </Grid>

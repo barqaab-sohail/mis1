@@ -7,7 +7,6 @@ const RemainingBudgetChart = (props) => {
     const [data, setData] = useState([]);
     const remainingBudget = props.remainingBudget;
     const budgetUtilize = 100 - remainingBudget;
-    const remainingAmount = 0;
 
     return (
         <Chart
@@ -22,14 +21,14 @@ const RemainingBudgetChart = (props) => {
                 dataLabels: {
                     enabled: true,
                     formatter: function (val, opts) {
-                        return val.toFixed(2) + '%';
+                        return val?.toFixed(2) + '%' || '';
                     }
                 },
                 tooltip: {
                     enabled: true,
                     y: {
                         formatter: function (val, opts) {
-                            return val.toFixed(2) + ' %';
+                            return val?.toFixed(2) + ' %' || '';
                         }
                     }
                 }
