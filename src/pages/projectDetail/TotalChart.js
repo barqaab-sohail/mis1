@@ -26,6 +26,7 @@ const TotalChart = (props) => {
             }
         };
         sendGetRequest();
+        console.log('total invoices : ' + invoices);
     }, []);
 
     return (
