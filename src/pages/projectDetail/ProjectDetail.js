@@ -77,7 +77,7 @@ const ProjectDetail = () => {
                     </Button>
                 </CardActions>
             </MainCard>
-            {projectDetail.projectType === 'Man Month' ? (
+            {projectDetail.projectType != 'Lumpsum' ? (
                 <>
                     <Grid item xs={12} sx={{ mb: -2.25 }}>
                         <RemainingBudgetChart remainingBudget={projectDetail.percentageRemainingBudget} />

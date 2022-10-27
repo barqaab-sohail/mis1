@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../../api/axios';
+
 // third-party
 import Chart from 'react-apexcharts';
 
 const RemainingBudgetChart = (props) => {
-    const [data, setData] = useState([]);
     const remainingBudget = props.remainingBudget;
     const budgetUtilize = 100 - remainingBudget;
 
