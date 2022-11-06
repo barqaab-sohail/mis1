@@ -8,6 +8,9 @@ const END_POINT = '/powerRunningProjectsTable';
 
 const RunningProjectsTable = () => {
     const [runningProjects, setRunningProjects] = useState([]);
+    //const [repeater, setRepeater] = useState(0);
+    // setTimeout(() => setRepeater((prevState) => prevState + 1), 10000);
+
     const nav = useNavigate();
     useEffect(() => {
         const sendGetRequest = async () => {
@@ -23,6 +26,7 @@ const RunningProjectsTable = () => {
 
         sendGetRequest();
     }, []);
+    console.log('testing');
 
     const columns = [
         { title: 'Type', field: 'projectType', cellStyle: { width: '5%' } },

@@ -35,7 +35,7 @@ import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 
 const AuthLogin = () => {
     const nav = useNavigate();
-
+    const [getError, setGetError] = React.useState('');
     const [checked, setChecked] = React.useState(false);
 
     const [showPassword, setShowPassword] = React.useState(false);
@@ -61,9 +61,11 @@ const AuthLogin = () => {
                 localStorage.setItem('pictureUrl', res.data.pictureUrl);
                 nav('/dashboard');
             } else if (res.data.status === 401) {
-                console.log('You Not Authorized');
+                setGetError(res.data.message);
+            } else if (res.data.status === 402) {
+                setGetError(res.data.message);
             } else {
-                console.log('some thing is missing');
+                setGetError('some thing is missing');
             }
         });
         // });
@@ -71,6 +73,7 @@ const AuthLogin = () => {
 
     return (
         <>
+            <h2 style={{ color: 'red' }}>{getError}</h2>
             <Formik
                 initialValues={{
                     email: '',

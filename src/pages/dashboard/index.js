@@ -200,7 +200,8 @@ const DashboardDefault = () => {
                         </ListItemButton>
                         <ListItemButton>
                             <ListItemText primary="Business Risk Cases" />
-                            <Typography variant="h5">Low</Typography>
+                            <Typography vari
+                            ant="h5">Low</Typography>
                         </ListItemButton>
                     </List>
                     <ReportAreaChart />
