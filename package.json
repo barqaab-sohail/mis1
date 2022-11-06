@@ -2,7 +2,7 @@
     "name": "BARQAAB Management Information System",
     "version": "1.0.0",
     "private": true,
-    "homepage": "https://mis.barqaab.pk/mis/login",
+    "homepage": "https://mis.barqaab.pk/mis",
     "dependencies": {
         "@ant-design/colors": "^4.0.0-alpha.0",
         "@ant-design/icons": "^4.0.0-rc.0",

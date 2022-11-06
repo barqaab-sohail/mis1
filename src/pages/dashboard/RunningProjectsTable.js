@@ -26,7 +26,6 @@ const RunningProjectsTable = () => {
 
         sendGetRequest();
     }, []);
-    console.log('testing');
 
     const columns = [
         { title: 'Type', field: 'projectType', cellStyle: { width: '5%' } },
