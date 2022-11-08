@@ -4,28 +4,24 @@ import axios from '../../api/axios';
 // material-ui
 import { Grid, Typography } from '@mui/material';
 import MaterialTable from 'material-table';
+import { useQuery } from '@tanstack/react-query';
 const END_POINT = '/powerRunningProjectsTable';
 
 const RunningProjectsTable = () => {
-    const [runningProjects, setRunningProjects] = useState([]);
+    const nav = useNavigate();
     //const [repeater, setRepeater] = useState(0);
     // setTimeout(() => setRepeater((prevState) => prevState + 1), 10000);
 
-    const nav = useNavigate();
-    useEffect(() => {
-        const sendGetRequest = async () => {
-            try {
-                const token = localStorage.getItem('auth_token');
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                const resp = await axios.get(END_POINT);
-                setRunningProjects(await resp.data);
-            } catch (err) {
-                console.log(err);
-            }
-        };
-
-        sendGetRequest();
-    }, []);
+    const { isLoading, error, data } = useQuery(
+        ['powerRunnProjectsTable'],
+        () => {
+            return axios.get(END_POINT);
+        },
+        {
+            staleTime: 30000, //refresh on swich screen
+            refetchInterval: 60000 //refresh on some time
+        }
+    );
 
     const columns = [
         { title: 'Type', field: 'projectType', cellStyle: { width: '5%' } },
@@ -49,7 +45,7 @@ const RunningProjectsTable = () => {
                 <MaterialTable
                     columns={columns}
                     title="List of Power Running Projects"
-                    data={runningProjects}
+                    data={data?.data}
                     onRowClick={(event, rowData) => {
                         nav('/project-detail/' + rowData.id);
                     }}

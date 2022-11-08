@@ -3,30 +3,19 @@ import axios from '../../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import MaterialTable from 'material-table';
 import { Grid, Button, Typography } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 const END_POINT = '/lastMonthInvoices';
 
 const LastMonthInvoiceDetail = () => {
-    const [lastMonthInvoices, setLastMonthInvoices] = useState([]);
     const nav = useNavigate();
+
+    const { isLoading, error, data } = useQuery(['lastMonthInvoices'], () => {
+        return axios.get(END_POINT);
+    });
 
     const dashboard = () => {
         nav('/dashboard');
     };
-
-    useEffect(() => {
-        const sendGetRequest = async () => {
-            try {
-                const token = localStorage.getItem('auth_token');
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                const resp = await axios.get(END_POINT);
-                setLastMonthInvoices(await resp.data);
-            } catch (err) {
-                console.log(err);
-            }
-        };
-
-        sendGetRequest();
-    }, []);
 
     const columns = [
         { title: 'Project Name', field: 'projectName', cellStyle: { width: '75%' } },
@@ -41,7 +30,7 @@ const LastMonthInvoiceDetail = () => {
                 <MaterialTable
                     columns={columns}
                     title="Last Month Invoice Detail"
-                    data={lastMonthInvoices}
+                    data={data?.data}
                     options={{ headerStyle: { position: 'sticky', top: 0 }, maxBodyHeight: '650px', pageSize: 10 }}
                 />
             </Grid>
