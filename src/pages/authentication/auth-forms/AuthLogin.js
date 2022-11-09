@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link as RouterLink, useNavigate, Navigate } from 'react-router-dom';
-//import axios from '../../../api/axios';
-import axios from '../../../api/axios';
+
+import api from '../../../api/axios';
 
 // material-ui
 import {
@@ -51,8 +51,8 @@ const AuthLogin = () => {
             email: values.email,
             password: values.password
         };
-        //axios.get('/sanctum/csrf-cookie').then((response) => {
-        axios.post('mis/login', data).then((res) => {
+
+        api.post('mis/login', data).then((res) => {
             if (res.data.status === 200) {
                 localStorage.setItem('auth_token', res.data.token);
                 localStorage.setItem('userName', res.data.userName);

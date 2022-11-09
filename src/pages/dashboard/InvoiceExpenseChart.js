@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from '../../api/axios';
+import api from '../../api/axios';
 const END_POINT = '/projectExpenseChart/16';
 
 // material-ui
@@ -113,7 +113,7 @@ const InvoiceExpenseChart = () => {
     useEffect(() => {
         const sendGetRequest = async () => {
             try {
-                const resp = await axios.get(END_POINT);
+                const resp = await api.get(END_POINT);
                 setMonths(resp.data.months);
                 setInvoices(resp.data.invoices);
                 setExpenses(resp.data.expenses);

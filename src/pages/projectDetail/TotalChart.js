@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from '../../api/axios';
+import api from '../../api/axios';
 
 // third-party
 import Chart from 'react-apexcharts';
@@ -10,12 +10,12 @@ const END_POINT = '/totalBudgetExpenditure/';
 const TotalChart = (props) => {
     const colors = ['#04cf30', '#fc1403', '#0307fc', '#f502a0'];
 
-    const token = localStorage.getItem('auth_token');
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    // const token = localStorage.getItem('auth_token');
+    // api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     const { isLoading, error, data } = useQuery(
         ['totalBudgetExpenditure', props.projectId],
         () => {
-            return axios.get(END_POINT + props.projectId);
+            return api.get(END_POINT + props.projectId);
         },
         {
             staleTime: 30000, //refresh on swich screen

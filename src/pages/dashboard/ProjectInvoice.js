@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from '../../api/axios';
+import api from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
 const END_POINT = '/invoiceData';
@@ -11,12 +11,12 @@ import { useQuery } from '@tanstack/react-query';
 const ProjectInvoice = () => {
     const nav = useNavigate();
 
-    const token = localStorage.getItem('auth_token');
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    // const token = localStorage.getItem('auth_token');
+    // api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     const { isLoading, error, data } = useQuery(
         ['projectInvoice'],
         () => {
-            return axios.get(END_POINT);
+            return api.get(END_POINT);
         },
         {
             staleTime: 30000, //refresh on swich screen

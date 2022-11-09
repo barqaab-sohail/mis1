@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../../api/axios';
+import api from '../../api/axios';
 import { FixedSizeList as List } from 'react-window';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
@@ -18,12 +18,12 @@ const EmployeeList = () => {
     const [searchText, setSearchText] = useState('');
     const nav = useNavigate();
 
-    const token = localStorage.getItem('auth_token');
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    // const token = localStorage.getItem('auth_token');
+    // api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     const { isLoading, error, data } = useQuery(
         ['employees'],
         () => {
-            return axios.get(END_POINT);
+            return api.get(END_POINT);
         },
         {
             staleTime: 30000, //refresh on swich screen

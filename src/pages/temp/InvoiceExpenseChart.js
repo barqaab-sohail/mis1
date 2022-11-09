@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from '../../api/axios';
+import api from '../../api/axios';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -107,9 +107,9 @@ const InvoiceExpenseChart = (props) => {
 
         const sendGetRequest = async () => {
             try {
-                const token = localStorage.getItem('auth_token');
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                const dataReq = await axios.get('/projectExpenseChart/' + props.projectId);
+                // const token = localStorage.getItem('auth_token');
+                // api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                const dataReq = await api.get('/projectExpenseChart/' + props.projectId);
                 const dataRes = await dataReq.data;
                 for (let i = 0; i < dataRes.length; i++) {
                     chartMonth.push(dataRes[i].months);

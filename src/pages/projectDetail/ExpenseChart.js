@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
-import axios from '../../api/axios';
+import api from '../../api/axios';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useQuery } from '@tanstack/react-query';
 const END_POINT = '/projectExpenseChart/';
@@ -11,12 +11,12 @@ const ExpenseChart = (props) => {
     const invoices = [];
     const payments = [];
 
-    const token = localStorage.getItem('auth_token');
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    // const token = localStorage.getItem('auth_token');
+    // api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     const { isLoading, error, data } = useQuery(
         ['projectExpenseChart', props.projectId],
         () => {
-            return axios.get(END_POINT + props.projectId);
+            return api.get(END_POINT + props.projectId);
         },
         {
             staleTime: 30000, //refresh on swich screen

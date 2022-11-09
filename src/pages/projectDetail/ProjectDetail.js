@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../../api/axios';
+import api from '../../api/axios';
 
 // material-ui
 import { Button, Card, CardActions, CardContent, CardHeader, Divider, Grid, Typography } from '@mui/material';
@@ -24,12 +24,12 @@ const ProjectDetail = () => {
         nav('/dashboard');
     };
 
-    const token = localStorage.getItem('auth_token');
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    // const token = localStorage.getItem('auth_token');
+    // api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     const { isLoading, error, data } = useQuery(
         ['projectDetail', ProjectId],
         () => {
-            return axios.get(END_POINT + ProjectId);
+            return api.get(END_POINT + ProjectId);
         },
         {
             staleTime: 30000, //refresh on swich screen
