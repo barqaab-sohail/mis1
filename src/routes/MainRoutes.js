@@ -23,7 +23,6 @@ const Typography = Loadable(lazy(() => import('pages/components-overview/Typogra
 const Color = Loadable(lazy(() => import('pages/components-overview/Color')));
 const Shadow = Loadable(lazy(() => import('pages/components-overview/Shadow')));
 const AntIcons = Loadable(lazy(() => import('pages/components-overview/AntIcons')));
-import PrivateRoutes from './PrivateRoutes';
 import ProtectedRoute from './ProtectedRoute';
 
 // ==============================|| MAIN ROUTING ||============================== //

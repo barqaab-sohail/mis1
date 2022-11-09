@@ -6,27 +6,26 @@ const END_POINT = '/invoiceData';
 
 // material-ui
 import { Grid, Typography } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 
 const ProjectInvoice = () => {
-    const [powerInvoice, setPowerInvoice] = useState([]);
     const nav = useNavigate();
-    useEffect(() => {
-        const sendGetRequest = async () => {
-            try {
-                const token = localStorage.getItem('auth_token');
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                const resp = await axios.get(END_POINT);
-                setPowerInvoice(await resp.data);
-            } catch (err) {
-                console.log(err);
-            }
-        };
 
-        sendGetRequest();
-    }, []);
+    const token = localStorage.getItem('auth_token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    const { isLoading, error, data } = useQuery(
+        ['projectInvoice'],
+        () => {
+            return axios.get(END_POINT);
+        },
+        {
+            staleTime: 30000, //refresh on swich screen
+            refetchInterval: 60000 //refresh on some time
+        }
+    );
 
     const currentMonthPaymentDetail = () => {
-        if (powerInvoice.current_month_received != 0) {
+        if (data?.data.current_month_received != 0) {
             nav('/current-month-payment-detail');
         } else {
             console.log('No Payment Received');
@@ -34,7 +33,7 @@ const ProjectInvoice = () => {
     };
 
     const lastMonthPaymentDetail = () => {
-        if (powerInvoice.last_month_received != 0) {
+        if (data?.data.last_month_received != 0) {
             nav('/last-month-payment-detail');
         } else {
             console.log('No Payment Received');
@@ -42,7 +41,7 @@ const ProjectInvoice = () => {
     };
 
     const currentMonthInvoiceDetail = () => {
-        if (powerInvoice.current_month_invoice != 0) {
+        if (data?.data.current_month_invoice != 0) {
             nav('/current-month-invoice-detail');
         } else {
             console.log('No Invoice Raised');
@@ -50,7 +49,7 @@ const ProjectInvoice = () => {
     };
 
     const lastMonthInvoiceDetail = () => {
-        if (powerInvoice.last_month_invoice != 0) {
+        if (data?.data.last_month_invoice != 0) {
             nav('/last-month-invoice-detail');
         } else {
             console.log('No Invoice Raised');
@@ -63,19 +62,19 @@ const ProjectInvoice = () => {
                 <Typography variant="h5">Dashboard</Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={2}>
-                <AnalyticEcommerce title="Total Power Projects Running" count={powerInvoice.total_power_projects_running} />
+                <AnalyticEcommerce title="Total Power Projects Running" count={data?.data.total_power_projects_running} />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={2} onClick={currentMonthPaymentDetail}>
-                <AnalyticEcommerce title="Current Month Payment Received" count={powerInvoice.current_month_received} />
+                <AnalyticEcommerce title="Current Month Payment Received" count={data?.data.current_month_received} />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={2} onClick={lastMonthPaymentDetail}>
-                <AnalyticEcommerce title="Last Month Payment Received" count={powerInvoice.last_month_received} />
+                <AnalyticEcommerce title="Last Month Payment Received" count={data?.data.last_month_received} />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={2} onClick={currentMonthInvoiceDetail}>
-                <AnalyticEcommerce title="Current Month Total Invoices" count={powerInvoice.current_month_invoice} />
+                <AnalyticEcommerce title="Current Month Total Invoices" count={data?.data.current_month_invoice} />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={2} onClick={lastMonthInvoiceDetail}>
-                <AnalyticEcommerce title="Last Month Total Invoices" count={powerInvoice.last_month_invoice} />
+                <AnalyticEcommerce title="Last Month Total Invoices" count={data?.data.last_month_invoice} />
             </Grid>
             <Grid item xs={12} sm={6} md={4} lg={2}></Grid>
 

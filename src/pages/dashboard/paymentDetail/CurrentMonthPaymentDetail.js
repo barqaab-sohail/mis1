@@ -3,30 +3,32 @@ import axios from '../../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import MaterialTable from 'material-table';
 import { Grid, Button, Typography } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
+import CircularProgress from '@material-ui/core/CircularProgress';
 const END_POINT = '/currentMonthPaymentReceived';
 
 const CurrentMonthPayments = () => {
-    const [currentMonthPayments, setCurrentMonthPayments] = useState([]);
     const nav = useNavigate();
 
     const dashboard = () => {
         nav('/dashboard');
     };
 
-    useEffect(() => {
-        const sendGetRequest = async () => {
-            try {
-                const token = localStorage.getItem('auth_token');
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                const resp = await axios.get(END_POINT);
-                setCurrentMonthPayments(await resp.data);
-            } catch (err) {
-                console.log(err);
-            }
-        };
-
-        sendGetRequest();
-    }, []);
+    const token = localStorage.getItem('auth_token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    const { isLoading, error, data } = useQuery(
+        ['currentMonthPaymentReceived'],
+        () => {
+            return axios.get(END_POINT);
+        },
+        {
+            staleTime: 30000, //refresh on swich screen
+            refetchInterval: 60000 //refresh on some time
+        }
+    );
+    if (isLoading) {
+        return <CircularProgress />;
+    }
 
     const columns = [
         { title: 'Project Name', field: 'projectName', cellStyle: { width: '75%' } },
@@ -41,7 +43,7 @@ const CurrentMonthPayments = () => {
                 <MaterialTable
                     columns={columns}
                     title="Current Month Payment Received Detail"
-                    data={currentMonthPayments}
+                    data={data?.data}
                     options={{ headerStyle: { position: 'sticky', top: 0 }, maxBodyHeight: '650px' }}
                 />
             </Grid>

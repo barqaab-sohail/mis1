@@ -16,6 +16,16 @@ const RemainingBudgetChart = (props) => {
                     position: 'bottom',
                     horizontalAlign: 'center'
                 },
+                title: {
+                    text: 'Budget Utilization and Remaining Budget Chart ',
+                    align: 'center',
+                    margin: 100,
+                    style: {
+                        fontSize: '18px',
+                        fontWeight: 'bold',
+                        color: '#263238'
+                    }
+                },
 
                 dataLabels: {
                     enabled: true,
@@ -32,7 +42,7 @@ const RemainingBudgetChart = (props) => {
                     }
                 }
             }}
-            series={[budgetUtilize, remainingBudget]}
+            series={[!!budgetUtilize, !!remainingBudget]}
             type="donut"
             width={'100%'}
             height={500}

@@ -10,44 +10,29 @@ import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import TextField from '@material-ui/core/TextField';
+import { useQuery } from '@tanstack/react-query';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 const END_POINT = '/employees';
 
 const EmployeeList = () => {
-    const [employees, setEmployees] = useState([]);
     const [searchText, setSearchText] = useState('');
     const nav = useNavigate();
 
-    useEffect(() => {
-        const sendGetRequest = async () => {
-            try {
-                const token = localStorage.getItem('auth_token');
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                const resp = await axios.get(END_POINT);
-                setEmployees(await resp.data);
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        sendGetRequest();
-    }, []);
-    if (employees.length === 0) {
+    const token = localStorage.getItem('auth_token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    const { isLoading, error, data } = useQuery(
+        ['employees'],
+        () => {
+            return axios.get(END_POINT);
+        },
+        {
+            staleTime: 30000, //refresh on swich screen
+            refetchInterval: 60000 //refresh on some time
+        }
+    );
+    if (isLoading) {
         return <CircularProgress />;
     }
-
-    // let filterEmployee = employees;
-    // const handleSearch = (event) => {
-    //     if (event.target.value != null) {
-    //         filterEmployee = employees.filter(({ full_name, cnic }) => {
-    //             full_name.toLowerCase().includes(searchText.toLowerCase()) || cnic.toLowerCase().includes(searchText.toLowerCase());
-    //         });
-    //         // const filtered = employees.filter((employee) => {
-    //         //     return employee.full_name.toLowerCase().includes(event.target.value.toLowerCase());
-    //         // });
-    //         // setEmployees(filtered);
-    //     }
-    // };
 
     return (
         <>
@@ -56,7 +41,7 @@ const EmployeeList = () => {
 
             <Box sx={{ width: '100%' }}>
                 <Stack spacing={2}>
-                    {employees
+                    {data?.data
                         .filter((employee) => {
                             return JSON.stringify(employee).toLowerCase().includes(searchText.toLowerCase());
                         })

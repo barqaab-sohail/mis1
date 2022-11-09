@@ -1,48 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 import axios from '../../api/axios';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { useQuery } from '@tanstack/react-query';
+const END_POINT = '/projectExpenseChart/';
 
 const ExpenseChart = (props) => {
-    const [months, setMonths] = useState([]);
-    const [expenses, setExpenses] = useState([]);
-    const [invoices, setInvoices] = useState([]);
-    const [payments, setPayments] = useState([]);
+    const months = [];
+    const expenses = [];
+    const invoices = [];
+    const payments = [];
 
-    useEffect(() => {
-        const getMonth = [];
-        const getExpenses = [];
-        const getInvoices = [];
-        const getPayments = [];
-
-        const sendGetRequest = async () => {
-            try {
-                const token = localStorage.getItem('auth_token');
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                const dataReq = await axios.get('/projectExpenseChart/' + props.projectId);
-                const dataRes = await dataReq.data;
-
-                dataRes.map((Item) => {
-                    getMonth.push(Item.months);
-                    getExpenses.push(Item.expenses);
-                    getInvoices.push(Item.invoices);
-                    getPayments.push(Item.payments);
-                });
-                setMonths(getMonth);
-                setInvoices(getInvoices);
-                setExpenses(getExpenses);
-                setPayments(getPayments);
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        sendGetRequest();
-    }, []);
+    const token = localStorage.getItem('auth_token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    const { isLoading, error, data } = useQuery(
+        ['projectExpenseChart', props.projectId],
+        () => {
+            return axios.get(END_POINT + props.projectId);
+        },
+        {
+            staleTime: 30000, //refresh on swich screen
+            refetchInterval: 60000 //refresh on some time
+        }
+    );
+    data?.data.map((Item) => {
+        months.push(Item.months);
+        expenses.push(Item.expenses);
+        invoices.push(Item.invoices);
+        payments.push(Item.payments);
+    });
+    if (isLoading) {
+        return <CircularProgress />;
+    }
 
     return (
         <Chart
             options={{
                 chart: {
                     id: 'expense-chart'
+                },
+                title: {
+                    text: 'Monthly Invoices, Payments and Expenses Chart ',
+                    align: 'center',
+                    margin: 100,
+                    style: {
+                        fontSize: '18px',
+                        fontWeight: 'bold',
+                        color: '#263238'
+                    }
                 },
                 xaxis: {
                     categories: months

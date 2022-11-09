@@ -3,30 +3,28 @@ import axios from '../../api/axios';
 
 // third-party
 import Chart from 'react-apexcharts';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { useQuery } from '@tanstack/react-query';
+const END_POINT = '/totalBudgetExpenditure/';
 
 const TotalChart = (props) => {
-    const [expenses, setExpenses] = useState('');
-    const [invoices, setInvoices] = useState('');
-    const [payments, setPayments] = useState('');
-    const [budget, setBudget] = useState('');
     const colors = ['#04cf30', '#fc1403', '#0307fc', '#f502a0'];
-    useEffect(() => {
-        const sendGetRequest = async () => {
-            try {
-                const token = localStorage.getItem('auth_token');
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                const dataReq = await axios.get('/totalBudgetExpenditure/' + props.projectId);
-                const dataRes = await dataReq.data;
-                setInvoices(dataRes.totalInvoice);
-                setExpenses(dataRes.totalExpense);
-                setPayments(dataRes.totalPayment);
-                setBudget(dataRes.budget);
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        sendGetRequest();
-    }, []);
+
+    const token = localStorage.getItem('auth_token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    const { isLoading, error, data } = useQuery(
+        ['totalBudgetExpenditure', props.projectId],
+        () => {
+            return axios.get(END_POINT + props.projectId);
+        },
+        {
+            staleTime: 30000, //refresh on swich screen
+            refetchInterval: 60000 //refresh on some time
+        }
+    );
+    if (isLoading) {
+        return <CircularProgress />;
+    }
 
     return (
         <Chart
@@ -34,6 +32,17 @@ const TotalChart = (props) => {
                 chart: {
                     id: 'expense-chart'
                 },
+                title: {
+                    text: 'Total Budget, Invoices, Payments and Expenses Chart ',
+                    align: 'center',
+                    margin: 100,
+                    style: {
+                        fontSize: '18px',
+                        fontWeight: 'bold',
+                        color: '#263238'
+                    }
+                },
+
                 colors: colors,
                 xaxis: {
                     categories: [
@@ -77,7 +86,7 @@ const TotalChart = (props) => {
                     enabled: true
                 }
             }}
-            series={[{ data: [budget, expenses, payments, invoices] }]}
+            series={[{ data: [data?.data.budget, data?.data.totalExpense, data?.data.totalPayment, data?.data.totalInvoice] }]}
             type="bar"
             width={'100%'}
             height={500}

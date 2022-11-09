@@ -4,18 +4,31 @@ import { useNavigate } from 'react-router-dom';
 import MaterialTable from 'material-table';
 import { Grid, Button, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
+import CircularProgress from '@material-ui/core/CircularProgress';
 const END_POINT = '/lastMonthInvoices';
 
 const LastMonthInvoiceDetail = () => {
     const nav = useNavigate();
 
-    const { isLoading, error, data } = useQuery(['lastMonthInvoices'], () => {
-        return axios.get(END_POINT);
-    });
+    const token = localStorage.getItem('auth_token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    const { isLoading, error, data } = useQuery(
+        ['lastMonthInvoices'],
+        () => {
+            return axios.get(END_POINT);
+        },
+        {
+            staleTime: 30000, //refresh on swich screen
+            refetchInterval: 60000 //refresh on some time
+        }
+    );
 
     const dashboard = () => {
         nav('/dashboard');
     };
+    if (isLoading) {
+        return <CircularProgress />;
+    }
 
     const columns = [
         { title: 'Project Name', field: 'projectName', cellStyle: { width: '75%' } },

@@ -30,6 +30,7 @@ import SettingTab from './SettingTab';
 import avatar1 from 'assets/images/users/zafar.JPG';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import axios from '../../../../../api/axios';
+const END_POINT = '/mis/logout';
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
@@ -61,6 +62,7 @@ const Profile = () => {
     const handleLogout = async () => {
         const token = localStorage.getItem('auth_token');
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        // request({ url: 'mis/logout', method: 'post', data: { email: localStorage.getItem('email') } }).then((res) => {
         axios.post('mis/logout', { email: localStorage.getItem('email') }).then((res) => {
             if (res.data.status === 200) {
                 localStorage.removeItem('auth_token');
@@ -68,6 +70,7 @@ const Profile = () => {
                 localStorage.removeItem('email');
                 localStorage.removeItem('userDesignation');
                 localStorage.removeItem('pictureUrl');
+
                 history('/login');
             } else {
                 console.log('not logout');

@@ -3,7 +3,6 @@ import { useRoutes } from 'react-router-dom';
 // project import
 import LoginRoutes from './LoginRoutes';
 import MainRoutes from './MainRoutes';
-import PrivateRoutes from './PrivateRoutes';
 
 // ==============================|| ROUTING RENDER ||============================== //
 

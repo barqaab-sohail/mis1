@@ -5,13 +5,13 @@ import axios from '../../api/axios';
 import { Grid, Typography } from '@mui/material';
 import MaterialTable from 'material-table';
 import { useQuery } from '@tanstack/react-query';
+import CircularProgress from '@material-ui/core/CircularProgress';
 const END_POINT = '/powerRunningProjectsTable';
 
 const RunningProjectsTable = () => {
     const nav = useNavigate();
-    //const [repeater, setRepeater] = useState(0);
-    // setTimeout(() => setRepeater((prevState) => prevState + 1), 10000);
-
+    const token = localStorage.getItem('auth_token');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     const { isLoading, error, data } = useQuery(
         ['powerRunnProjectsTable'],
         () => {
@@ -22,6 +22,9 @@ const RunningProjectsTable = () => {
             refetchInterval: 60000 //refresh on some time
         }
     );
+    if (isLoading) {
+        return <CircularProgress />;
+    }
 
     const columns = [
         { title: 'Type', field: 'projectType', cellStyle: { width: '5%' } },
