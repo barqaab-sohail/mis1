@@ -42,7 +42,7 @@ const RemainingBudgetChart = (props) => {
                     }
                 }
             }}
-            series={[!!budgetUtilize, !!remainingBudget]}
+            series={[budgetUtilize ? budgetUtilize : 0, remainingBudget ? remainingBudget : 0]}
             type="donut"
             width={'100%'}
             height={500}

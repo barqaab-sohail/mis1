@@ -25,6 +25,12 @@ const TotalChart = (props) => {
     if (isLoading) {
         return <CircularProgress />;
     }
+    const categories = [
+        data?.data.budget != 0 ? ['Total', 'Budget'] : '',
+        ['Total', 'Expenses'],
+        ['Total', 'Invoices'],
+        ['Total', 'Payments']
+    ];
 
     return (
         <Chart
@@ -33,7 +39,7 @@ const TotalChart = (props) => {
                     id: 'expense-chart'
                 },
                 title: {
-                    text: 'Total Budget, Invoices, Payments and Expenses Chart ',
+                    text: data?.data.budget != 0 ? 'Total Budget, Invoices, Payments and Expenses Chart' : '',
                     align: 'center',
                     margin: 100,
                     style: {
@@ -45,12 +51,7 @@ const TotalChart = (props) => {
 
                 colors: colors,
                 xaxis: {
-                    categories: [
-                        ['Total', 'Budget'],
-                        ['Total', 'Expenses'],
-                        ['Total', 'Payments'],
-                        ['Total', 'Invoices']
-                    ]
+                    categories: categories
                 },
                 yaxis: {
                     show: true,
@@ -86,7 +87,7 @@ const TotalChart = (props) => {
                     enabled: true
                 }
             }}
-            series={[{ data: [data?.data.budget, data?.data.totalExpense, data?.data.totalPayment, data?.data.totalInvoice] }]}
+            series={[{ data: [data?.data.budget, data?.data.totalExpense, data?.data.totalInvoice, data?.data.totalPayment] }]}
             type="bar"
             width={'100%'}
             height={500}

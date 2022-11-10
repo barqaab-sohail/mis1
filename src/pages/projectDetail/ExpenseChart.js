@@ -32,72 +32,83 @@ const ExpenseChart = (props) => {
     if (isLoading) {
         return <CircularProgress />;
     }
-
-    return (
-        <Chart
-            options={{
-                chart: {
-                    id: 'expense-chart'
-                },
-                title: {
-                    text: 'Monthly Invoices, Payments and Expenses Chart ',
-                    align: 'center',
-                    margin: 100,
-                    style: {
-                        fontSize: '18px',
-                        fontWeight: 'bold',
-                        color: '#263238'
-                    }
-                },
-                xaxis: {
-                    categories: months
-                },
-                yaxis: {
-                    show: true,
-                    labels: {
+    const isAllZero = expenses.every((item) => item === 0);
+    return isAllZero === false ? (
+        <>
+            <Chart
+                options={{
+                    chart: {
+                        id: 'expense-chart'
+                    },
+                    title: {
+                        text: 'Monthly Invoices, Expenses and Payments Chart ',
+                        align: 'center',
+                        margin: 100,
+                        style: {
+                            fontSize: '18px',
+                            fontWeight: 'bold',
+                            color: '#263238'
+                        }
+                    },
+                    xaxis: {
+                        categories: months
+                    },
+                    yaxis: {
                         show: true,
-                        formatter: function (val, index) {
-                            var parts = val?.toString().split('.') || '';
-                            if (parts) {
-                                parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                                return parts.join('.');
-                            } else {
-                                return '';
+                        labels: {
+                            show: true,
+                            formatter: function (val, index) {
+                                var parts = val?.toString().split('.') || '';
+                                if (parts) {
+                                    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                                    return parts.join('.');
+                                } else {
+                                    return '';
+                                }
                             }
                         }
-                    }
-                },
-                dataLabels: {
-                    enabled: true,
-                    formatter: function (val, index) {
-                        var parts = val?.toString().split('.') || '';
-                        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                        return parts.join('.');
-                    }
-                },
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function (val, index) {
+                            var parts = val?.toString().split('.') || '';
+                            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                            return parts.join('.');
+                        }
+                    },
 
-                tooltip: {
-                    enabled: true
-                }
-            }}
-            series={[
-                {
-                    name: 'Invoices',
-                    data: invoices
-                },
-                {
-                    name: 'Payments',
-                    data: payments
-                },
-                {
-                    name: 'Expenses',
-                    data: expenses
-                }
-            ]}
-            type="bar"
-            width={'100%'}
-            height={500}
-        />
+                    tooltip: {
+                        enabled: true
+                    }
+                }}
+                series={[
+                    {
+                        name: 'Invoices',
+                        data: invoices,
+                        color: '#fc1403'
+                    },
+                    {
+                        name: 'Expenses',
+                        data: expenses,
+                        color: '#0307fc'
+                    },
+                    {
+                        name: 'Payments',
+                        data: payments,
+                        color: '#f502a0'
+                    }
+                ]}
+                type="bar"
+                width={'100%'}
+                height={500}
+            />
+        </>
+    ) : (
+        <>
+            <br />
+            <br />
+            <h2>Necessary Data is not Avaiable for Monthly Invoices, Payments and Expenses Chart </h2>
+        </>
     );
 };
 
