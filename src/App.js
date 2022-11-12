@@ -4,7 +4,7 @@ import ThemeCustomization from 'themes';
 import ScrollTop from 'components/ScrollTop';
 
 // ==============================|| APP - THEME, ROUTER, LOCAL  ||============================== //
-
+//window.addEventListener('beforeunload', () => localStorage.clear());
 const App = () => (
     <ThemeCustomization>
         <ScrollTop>

@@ -83,13 +83,13 @@ const ExpenseChart = (props) => {
                 }}
                 series={[
                     {
-                        name: 'Invoices',
-                        data: invoices,
+                        name: 'Expenses',
+                        data: expenses,
                         color: '#fc1403'
                     },
                     {
-                        name: 'Expenses',
-                        data: expenses,
+                        name: 'Invoices',
+                        data: invoices,
                         color: '#0307fc'
                     },
                     {

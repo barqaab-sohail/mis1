@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
 import { Link as RouterLink, useNavigate, Navigate } from 'react-router-dom';
 
 import api from '../../../api/axios';
@@ -37,6 +38,7 @@ const AuthLogin = () => {
     const nav = useNavigate();
     const [getError, setGetError] = React.useState('');
     const [checked, setChecked] = React.useState(false);
+    const [token, setToken] = React.useState(localStorage.getItem('auth_token'));
 
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => {
@@ -70,6 +72,14 @@ const AuthLogin = () => {
         });
         // });
     };
+
+    useEffect(() => {
+        setToken(localStorage.getItem('auth_token'));
+    }, []);
+
+    if (token) {
+        return <Navigate to="/dashboard" replace />;
+    }
 
     return (
         <>
