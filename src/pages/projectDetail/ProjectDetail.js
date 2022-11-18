@@ -36,12 +36,24 @@ const ProjectDetail = () => {
             refetchInterval: 60000 //refresh on some time
         }
     );
-
+    let role = '';
+    if (data?.data.barqaabRole === 1) {
+        role = 'Independent';
+    } else if (data?.data.barqaabRole === 2) {
+        role = 'JV Partner';
+    } else if (data?.data.barqaabRole == 3) {
+        role = 'Lead Partner';
+    } else if (data?.data.barqaabRole == 4) {
+        role = 'Sub Consultant';
+    }
     return (
         <>
             <MainCard title={data?.data.projectName}>
                 <Typography>
                     <b>Client Name :</b> {data?.data.clientName}
+                </Typography>
+                <Typography>
+                    <b>BARQAAB Role :</b> {role}
                 </Typography>
                 <Typography>
                     <b>Commencement Date :</b> {data?.data.commencementDate}
@@ -52,7 +64,10 @@ const ProjectDetail = () => {
                 {data?.data.projectType === 'Man Month' ? (
                     <>
                         <Typography>
-                            <b>Last Invoice Month :</b> {data?.data.lastInvoiceMonth}
+                            <b>Last Payment Received :</b> {data?.data.latestPaymentAmount}
+                        </Typography>
+                        <Typography>
+                            <b>Last Payment Date :</b> {data?.data.latestPaymentDate}
                         </Typography>
                         <Typography>
                             <b>Total Project Cost W/O Sales Tax : </b>
@@ -62,7 +77,14 @@ const ProjectDetail = () => {
                             <b>Total Invoices Raised w/O Sales Tax :</b> {data?.data.totalInvoicesAmountWOTaxWOExc}
                         </Typography>
                         <Typography>
-                            <b>Remaining Budget :</b> {data?.data.balaneBudget}, {data?.data.percentageRemainingBudget}%
+                            <b>Last Invoice Month :</b> {data?.data.lastInvoiceMonth}
+                        </Typography>
+                        <Typography>
+                            <b>Remaining Budget Amount:</b> {data?.data.balaneBudget}
+                        </Typography>
+                        <Typography>
+                            <b>Remaining Budget Percentage:</b>{' '}
+                            {data?.data.percentageRemainingBudget != 'No Data Found' ? data?.data.percentageRemainingBudget + '%' : ''}
                         </Typography>
                     </>
                 ) : (

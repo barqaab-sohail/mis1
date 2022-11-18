@@ -34,12 +34,12 @@ const RunningProjectsTable = () => {
             cellStyle: { width: '50%' }
         },
         { title: 'Payment Received', field: 'paymentReceived' },
-        { title: 'Pending Payments', field: 'pendingPayments' },
+        { title: 'Pending Receipts', field: 'pendingPayments' },
         { title: 'Budget Utilization', field: 'budgetUtilization' },
         { title: 'Project Progress', field: 'projectProgress' },
         { title: 'Last Invoice', field: 'latestInvoiceMonth' },
         { title: 'Last Expense', field: 'latestExpenditureMonth' },
-        { title: 'Last Payment', field: 'latestPaymentMonth' }
+        { title: 'Last Receipt', field: 'latestPaymentMonth' }
     ];
 
     return (

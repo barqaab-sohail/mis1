@@ -29,7 +29,7 @@ const TotalChart = (props) => {
         data?.data.budget != 0 ? ['Total', 'Budget'] : '',
         ['Total', 'Expenses'],
         ['Total', 'Invoices'],
-        ['Total', 'Payments']
+        ['Total', 'Receipts']
     ];
 
     return (
@@ -39,7 +39,7 @@ const TotalChart = (props) => {
                     id: 'expense-chart'
                 },
                 title: {
-                    text: data?.data.budget != 0 ? 'Total Budget, Invoices, Payments and Expenses Chart' : '',
+                    text: data?.data.budget != 0 ? 'Total Budget, Invoices, Receipts and Expenses Chart' : '',
                     align: 'center',
                     margin: 100,
                     style: {

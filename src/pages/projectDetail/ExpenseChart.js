@@ -41,7 +41,7 @@ const ExpenseChart = (props) => {
                         id: 'expense-chart'
                     },
                     title: {
-                        text: 'Monthly Invoices, Expenses and Payments Chart ',
+                        text: 'Monthly Invoices, Expenses and Receipts Chart ',
                         align: 'center',
                         margin: 100,
                         style: {
@@ -93,7 +93,7 @@ const ExpenseChart = (props) => {
                         color: '#0307fc'
                     },
                     {
-                        name: 'Payments',
+                        name: 'Receipts',
                         data: payments,
                         color: '#f502a0'
                     }
